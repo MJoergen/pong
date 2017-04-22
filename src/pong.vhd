@@ -138,11 +138,13 @@ begin
 
     inst_sprites : entity work.sprite
     port map (
+                 clk_i       => clk_i      ,
                  sprites_i   => sprites    ,
                  pixel_x_i   => pixel_x    ,
                  pixel_y_i   => pixel_y    ,
                  rgb_i       => "01010101" , -- Background color
                  rgb_o       => vga_col    ,
+                 col_clr_i   => '0'        ,
                  collision_o => collision
              );
 

@@ -26,7 +26,10 @@ end player_move;
 
 architecture Structural of player_move is
 
-    signal pos_y    : std_logic_vector (10 downto 0) := "00100000000";
+    signal pos_y      : std_logic_vector (10 downto 0) := "00100000000";
+
+    constant screen_y : integer := 480; -- Vertical size of screen
+    constant height   : integer := 21;  -- Vertical size of sprite
 
 begin
 
@@ -35,11 +38,11 @@ begin
     process (clk_vs_i)
     begin
         if rising_edge(clk_vs_i) then
-            if btn_up_i = '1' and btn_down_i = '0' and pos_y /= "00000000000" then
-                pos_y <= pos_y - 1;
+            if btn_up_i = '1' and btn_down_i = '0' and pos_y >= 2 then
+                pos_y <= pos_y - 2;
             end if;
-            if btn_down_i = '1' and btn_up_i = '0' and pos_y /= "00110000000" then
-                pos_y <= pos_y + 1;
+            if btn_down_i = '1' and btn_up_i = '0' and pos_y < screen_y - height - 2 then
+                pos_y <= pos_y + 2;
             end if;
         end if;
     end process;

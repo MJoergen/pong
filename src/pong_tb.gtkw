@@ -1,10 +1,10 @@
 [*]
 [*] GTKWave Analyzer v3.3.72 (w)1999-2016 BSI
-[*] Sat Apr 22 21:27:01 2017
+[*] Sat Apr 22 22:19:31 2017
 [*]
 [dumpfile] "/home/mike/git/pong/src/pong_tb.ghw"
-[dumpfile_mtime] "Sat Apr 22 21:26:06 2017"
-[dumpfile_size] 11553417
+[dumpfile_mtime] "Sat Apr 22 22:18:52 2017"
+[dumpfile_size] 11545228
 [savefile] "/home/mike/git/pong/src/pong_tb.gtkw"
 [timestart] 0
 [size] 1916 1016
@@ -13,6 +13,7 @@
 [treeopen] top.
 [treeopen] top.pong_tb.
 [treeopen] top.pong_tb.inst_pong.
+[treeopen] top.pong_tb.inst_pong.inst_sprites.
 [sst_width] 229
 [signals_width] 237
 [sst_expanded] 1
@@ -33,5 +34,9 @@ top.pong_tb.vga_hs
 #{top.pong_tb.inst_pong.ball_y[10:0]} top.pong_tb.inst_pong.ball_y[10] top.pong_tb.inst_pong.ball_y[9] top.pong_tb.inst_pong.ball_y[8] top.pong_tb.inst_pong.ball_y[7] top.pong_tb.inst_pong.ball_y[6] top.pong_tb.inst_pong.ball_y[5] top.pong_tb.inst_pong.ball_y[4] top.pong_tb.inst_pong.ball_y[3] top.pong_tb.inst_pong.ball_y[2] top.pong_tb.inst_pong.ball_y[1] top.pong_tb.inst_pong.ball_y[0]
 #{top.pong_tb.inst_pong.player_y[10:0]} top.pong_tb.inst_pong.player_y[10] top.pong_tb.inst_pong.player_y[9] top.pong_tb.inst_pong.player_y[8] top.pong_tb.inst_pong.player_y[7] top.pong_tb.inst_pong.player_y[6] top.pong_tb.inst_pong.player_y[5] top.pong_tb.inst_pong.player_y[4] top.pong_tb.inst_pong.player_y[3] top.pong_tb.inst_pong.player_y[2] top.pong_tb.inst_pong.player_y[1] top.pong_tb.inst_pong.player_y[0]
 #{top.pong_tb.inst_pong.computer_y[10:0]} top.pong_tb.inst_pong.computer_y[10] top.pong_tb.inst_pong.computer_y[9] top.pong_tb.inst_pong.computer_y[8] top.pong_tb.inst_pong.computer_y[7] top.pong_tb.inst_pong.computer_y[6] top.pong_tb.inst_pong.computer_y[5] top.pong_tb.inst_pong.computer_y[4] top.pong_tb.inst_pong.computer_y[3] top.pong_tb.inst_pong.computer_y[2] top.pong_tb.inst_pong.computer_y[1] top.pong_tb.inst_pong.computer_y[0]
+@22
+#{top.pong_tb.inst_pong.inst_sprites.collision_pixel[0:7]} top.pong_tb.inst_pong.inst_sprites.collision_pixel[0] top.pong_tb.inst_pong.inst_sprites.collision_pixel[1] top.pong_tb.inst_pong.inst_sprites.collision_pixel[2] top.pong_tb.inst_pong.inst_sprites.collision_pixel[3] top.pong_tb.inst_pong.inst_sprites.collision_pixel[4] top.pong_tb.inst_pong.inst_sprites.collision_pixel[5] top.pong_tb.inst_pong.inst_sprites.collision_pixel[6] top.pong_tb.inst_pong.inst_sprites.collision_pixel[7]
+@23
+#{top.pong_tb.inst_pong.inst_sprites.collision[0:7]} top.pong_tb.inst_pong.inst_sprites.collision[0] top.pong_tb.inst_pong.inst_sprites.collision[1] top.pong_tb.inst_pong.inst_sprites.collision[2] top.pong_tb.inst_pong.inst_sprites.collision[3] top.pong_tb.inst_pong.inst_sprites.collision[4] top.pong_tb.inst_pong.inst_sprites.collision[5] top.pong_tb.inst_pong.inst_sprites.collision[6] top.pong_tb.inst_pong.inst_sprites.collision[7]
 [pattern_trace] 1
 [pattern_trace] 0
