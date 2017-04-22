@@ -1,6 +1,7 @@
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 use IEEE.STD_LOGIC_UNSIGNED.ALL;
+use work.sprite_pkg.ALL;
 
 -- This is the top level
 -- See diagram here: https://github.com/MJoergen/bcomp2/blob/master/img/Block_diagram_new.png
@@ -41,21 +42,49 @@ architecture Structural of pong is
     signal pixel_y : std_logic_vector (10 downto 0);
     signal blank   : std_logic;
 
-    signal rgb_from_background : std_logic_vector (7 downto 0);
-    signal rgb_from_player     : std_logic_vector (7 downto 0);
-    signal rgb_from_computer   : std_logic_vector (7 downto 0);
-    signal rgb_from_ball       : std_logic_vector (7 downto 0);
+    signal vga_col : std_logic_vector (7 downto 0);
 
-    signal player_pos_y : std_logic_vector (10 downto 0);
-    signal computer_pos_y : std_logic_vector (10 downto 0);
+    signal player_y   : std_logic_vector (10 downto 0);
+    signal computer_y : std_logic_vector (10 downto 0);
+    signal ball_x     : std_logic_vector (10 downto 0);
+    signal ball_y     : std_logic_vector (10 downto 0);
 
     signal vga_hs : std_logic;
     signal vga_vs : std_logic;
 
-    signal ball_x : std_logic_vector (10 downto 0);
-    signal ball_y : std_logic_vector (10 downto 0);
+    signal sprites : sprite_array_t := (others => NOSPRITE);
+
+    constant player_bitmap : pattern_t := (
+        others => "111111100000000000000000");
+    constant ball_bitmap : pattern_t := (
+             0 => "001110000000000000000000",
+             1 => "011111000000000000000000",
+             2 => "111111100000000000000000",
+             3 => "111111100000000000000000",
+             4 => "111111100000000000000000",
+             5 => "011111000000000000000000",
+             6 => "001110000000000000000000",
+        others => "000000000000000000000000");
 
 begin
+
+    sprites(0).pos_x   <= "00000000000";
+    sprites(0).pos_y   <= player_y;
+    sprites(0).pattern <= player_bitmap;
+    sprites(0).color   <= "11111111";
+    sprites(0).active  <= '1';
+
+    sprites(1).pos_x   <= "01000000000";
+    sprites(1).pos_y   <= computer_y;
+    sprites(1).pattern <= player_bitmap;
+    sprites(1).color   <= "00000000";
+    sprites(1).active  <= '1';
+
+    sprites(2).pos_x   <= ball_x;
+    sprites(2).pos_y   <= ball_y;
+    sprites(2).pattern <= ball_bitmap;
+    sprites(2).color   <= "11100000";
+    sprites(2).active  <= '1';
 
     vga_hs_o <= vga_hs;
     vga_vs_o <= vga_vs;
@@ -72,73 +101,44 @@ begin
                  blank_o   => blank
              );
 
-    -- Instantiate Background
-    inst_background : entity work.background
-    generic map (
-                    SIMULATION => SIMULATION
-                )
-    port map (
-             clk_i      => clk_i    ,
-             clk_vs_i   => vga_vs   ,
-             blank_i    => blank    ,
-             pixel_x_i  => pixel_x  ,
-             pixel_y_i  => pixel_y  ,
-             rgb_o      => rgb_from_background 
-             );
-
     -- Instantiate Player
-    inst_player : entity work.player
-    generic map (
-                    SIMULATION => SIMULATION
-                )
+    inst_player : entity work.player_move
     port map (
-             clk_i      => clk_i    ,
-             clk_vs_i   => vga_vs   ,
-             btn_up_i   => btn_i(3) ,
-             btn_down_i => btn_i(0) ,
-             pixel_x_i  => pixel_x  ,
-             pixel_y_i  => pixel_y  ,
-             rgb_i      => rgb_from_background ,
-             rgb_o      => rgb_from_player     ,
-             pos_y_o    => player_pos_y    
+                 clk_vs_i   => vga_vs   ,
+                 btn_up_i   => btn_i(3) ,
+                 btn_down_i => btn_i(0) ,
+                 pos_y_o    => player_y    
              );
 
     -- Instantiate Computer
-    inst_computer : entity work.computer
-    generic map (
-                    SIMULATION => SIMULATION
-                )
+    inst_computer_move : entity work.computer_move
     port map (
-             clk_i      => clk_i    ,
-             clk_vs_i   => vga_vs   ,
-             ball_x_i   => ball_x   ,
-             ball_y_i   => ball_y   ,
-             pixel_x_i  => pixel_x  ,
-             pixel_y_i  => pixel_y  ,
-             pos_y_o    => computer_pos_y    ,
-             rgb_i      => rgb_from_player   ,
-             rgb_o      => rgb_from_computer
+                 clk_vs_i   => vga_vs     ,
+                 ball_x_i   => ball_x     ,
+                 ball_y_i   => ball_y     ,
+                 pos_y_o    => computer_y   
              );
 
     -- Instantiate Ball
-    inst_ball : entity work.ball
-    generic map (
-                    SIMULATION => SIMULATION
-                )
+    inst_ball_move : entity work.ball_move
     port map (
-             clk_i      => clk_i    ,
-             clk_vs_i   => vga_vs   ,
-             pos_x_o    => ball_x   ,
-             pos_y_o    => ball_y   ,
-             player_y_i => player_pos_y ,
-             computer_y_i => computer_pos_y ,
-             pixel_x_i  => pixel_x  ,
-             pixel_y_i  => pixel_y  ,
-             rgb_i      => rgb_from_computer   ,
-             rgb_o      => rgb_from_ball
+                 clk_vs_i     => vga_vs     ,
+                 player_y_i   => player_y   ,
+                 computer_y_i => computer_y ,
+                 pos_x_o      => ball_x     ,
+                 pos_y_o      => ball_y    
              );
 
-    vga_col_o <= rgb_from_ball;
+    inst_sprites : entity work.sprite
+    port map (
+                 sprites_i  => sprites ,
+                 pixel_x_i  => pixel_x ,
+                 pixel_y_i  => pixel_y ,
+                 rgb_i      => "01010101" , -- Background color
+                 rgb_o      => vga_col
+             );
+
+    vga_col_o <= vga_col when blank = '0' else "00000000";
 
 end Structural;
 

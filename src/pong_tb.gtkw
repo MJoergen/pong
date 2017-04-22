@@ -1,15 +1,15 @@
 [*]
 [*] GTKWave Analyzer v3.3.72 (w)1999-2016 BSI
-[*] Sat Apr 22 20:19:39 2017
+[*] Sat Apr 22 21:27:01 2017
 [*]
 [dumpfile] "/home/mike/git/pong/src/pong_tb.ghw"
-[dumpfile_mtime] "Sat Apr 22 20:18:16 2017"
-[dumpfile_size] 11067013
+[dumpfile_mtime] "Sat Apr 22 21:26:06 2017"
+[dumpfile_size] 11553417
 [savefile] "/home/mike/git/pong/src/pong_tb.gtkw"
-[timestart] 14880600000000
+[timestart] 0
 [size] 1916 1016
 [pos] -1 -1
-*-37.382870 15507400000000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+*-41.382870 1930000000000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] top.
 [treeopen] top.pong_tb.
 [treeopen] top.pong_tb.inst_pong.
@@ -29,9 +29,9 @@ top.pong_tb.vga_hs
 @24
 #{top.pong_tb.inst_pong.pixel_x[9:0]} top.pong_tb.inst_pong.pixel_x[9] top.pong_tb.inst_pong.pixel_x[8] top.pong_tb.inst_pong.pixel_x[7] top.pong_tb.inst_pong.pixel_x[6] top.pong_tb.inst_pong.pixel_x[5] top.pong_tb.inst_pong.pixel_x[4] top.pong_tb.inst_pong.pixel_x[3] top.pong_tb.inst_pong.pixel_x[2] top.pong_tb.inst_pong.pixel_x[1] top.pong_tb.inst_pong.pixel_x[0]
 #{top.pong_tb.inst_pong.pixel_y[9:0]} top.pong_tb.inst_pong.pixel_y[9] top.pong_tb.inst_pong.pixel_y[8] top.pong_tb.inst_pong.pixel_y[7] top.pong_tb.inst_pong.pixel_y[6] top.pong_tb.inst_pong.pixel_y[5] top.pong_tb.inst_pong.pixel_y[4] top.pong_tb.inst_pong.pixel_y[3] top.pong_tb.inst_pong.pixel_y[2] top.pong_tb.inst_pong.pixel_y[1] top.pong_tb.inst_pong.pixel_y[0]
-#{top.pong_tb.inst_pong.player_pos_y[10:0]} top.pong_tb.inst_pong.player_pos_y[10] top.pong_tb.inst_pong.player_pos_y[9] top.pong_tb.inst_pong.player_pos_y[8] top.pong_tb.inst_pong.player_pos_y[7] top.pong_tb.inst_pong.player_pos_y[6] top.pong_tb.inst_pong.player_pos_y[5] top.pong_tb.inst_pong.player_pos_y[4] top.pong_tb.inst_pong.player_pos_y[3] top.pong_tb.inst_pong.player_pos_y[2] top.pong_tb.inst_pong.player_pos_y[1] top.pong_tb.inst_pong.player_pos_y[0]
-#{top.pong_tb.inst_pong.computer_pos_y[10:0]} top.pong_tb.inst_pong.computer_pos_y[10] top.pong_tb.inst_pong.computer_pos_y[9] top.pong_tb.inst_pong.computer_pos_y[8] top.pong_tb.inst_pong.computer_pos_y[7] top.pong_tb.inst_pong.computer_pos_y[6] top.pong_tb.inst_pong.computer_pos_y[5] top.pong_tb.inst_pong.computer_pos_y[4] top.pong_tb.inst_pong.computer_pos_y[3] top.pong_tb.inst_pong.computer_pos_y[2] top.pong_tb.inst_pong.computer_pos_y[1] top.pong_tb.inst_pong.computer_pos_y[0]
 #{top.pong_tb.inst_pong.ball_x[10:0]} top.pong_tb.inst_pong.ball_x[10] top.pong_tb.inst_pong.ball_x[9] top.pong_tb.inst_pong.ball_x[8] top.pong_tb.inst_pong.ball_x[7] top.pong_tb.inst_pong.ball_x[6] top.pong_tb.inst_pong.ball_x[5] top.pong_tb.inst_pong.ball_x[4] top.pong_tb.inst_pong.ball_x[3] top.pong_tb.inst_pong.ball_x[2] top.pong_tb.inst_pong.ball_x[1] top.pong_tb.inst_pong.ball_x[0]
 #{top.pong_tb.inst_pong.ball_y[10:0]} top.pong_tb.inst_pong.ball_y[10] top.pong_tb.inst_pong.ball_y[9] top.pong_tb.inst_pong.ball_y[8] top.pong_tb.inst_pong.ball_y[7] top.pong_tb.inst_pong.ball_y[6] top.pong_tb.inst_pong.ball_y[5] top.pong_tb.inst_pong.ball_y[4] top.pong_tb.inst_pong.ball_y[3] top.pong_tb.inst_pong.ball_y[2] top.pong_tb.inst_pong.ball_y[1] top.pong_tb.inst_pong.ball_y[0]
+#{top.pong_tb.inst_pong.player_y[10:0]} top.pong_tb.inst_pong.player_y[10] top.pong_tb.inst_pong.player_y[9] top.pong_tb.inst_pong.player_y[8] top.pong_tb.inst_pong.player_y[7] top.pong_tb.inst_pong.player_y[6] top.pong_tb.inst_pong.player_y[5] top.pong_tb.inst_pong.player_y[4] top.pong_tb.inst_pong.player_y[3] top.pong_tb.inst_pong.player_y[2] top.pong_tb.inst_pong.player_y[1] top.pong_tb.inst_pong.player_y[0]
+#{top.pong_tb.inst_pong.computer_y[10:0]} top.pong_tb.inst_pong.computer_y[10] top.pong_tb.inst_pong.computer_y[9] top.pong_tb.inst_pong.computer_y[8] top.pong_tb.inst_pong.computer_y[7] top.pong_tb.inst_pong.computer_y[6] top.pong_tb.inst_pong.computer_y[5] top.pong_tb.inst_pong.computer_y[4] top.pong_tb.inst_pong.computer_y[3] top.pong_tb.inst_pong.computer_y[2] top.pong_tb.inst_pong.computer_y[1] top.pong_tb.inst_pong.computer_y[0]
 [pattern_trace] 1
 [pattern_trace] 0
