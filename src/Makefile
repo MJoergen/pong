@@ -4,11 +4,11 @@ vfiles     = pong.vhd # Top level
 
 vfiles    += vga_controller_640_60.vhd
 vfiles    += background.vhd
-vfiles    += player.vhd
+#vfiles    += player.vhd
 vfiles    += player_move.vhd
-vfiles    += computer.vhd
+#vfiles    += computer.vhd
 vfiles    += computer_move.vhd
-vfiles    += ball.vhd
+#vfiles    += ball.vhd
 vfiles    += sprite_pkg.vhd
 vfiles    += sprite.vhd
 vfiles    += ball_move.vhd
