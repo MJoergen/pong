@@ -3,6 +3,8 @@ top_module = pong
 vfiles     = pong.vhd # Top level
 
 vfiles    += player.vhd
+vfiles    += player_disp.vhd
+vfiles    += player_move.vhd
 vfiles    += vga_controller_640_60.vhd
 
 # Synthesis

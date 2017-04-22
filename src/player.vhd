@@ -36,56 +36,30 @@ architecture Structural of player is
     constant pos_x  : std_logic_vector (10 downto 0) := "00000000000";
     signal pos_y    : std_logic_vector (10 downto 0) := "00100000000";
 
-    constant size_x : std_logic_vector (10 downto 0) := "00000000111";
-    constant size_y : std_logic_vector (10 downto 0) := "00000111111";
-
-    -- Divide by CHAR_WIDTH
-    type color_t is array (0 to 1) of std_logic_vector (7 downto 0);
-    constant color : color_t := (
-        "00000000",    -- Pixel off -> black
-        "11111111" );  -- Pixel on  -> white
-
-    type bitmap_t is array (0 to conv_integer(size_y)-1) of
-        std_logic_vector (conv_integer(size_x)-1 downto 0);
-    constant bitmap : bitmap_t := (others => (others => '1'));
-
 begin
 
     pos_y_o <= pos_y;
 
-    process (clk_vs_i)
-    begin
-        if rising_edge(clk_vs_i) then
-            if btn_up_i = '1' and pos_y /= "00000000000" then
-                pos_y <= pos_y - 1;
-            elsif btn_down_i = '1' and pos_y /= "00110000000" then
-                pos_y <= pos_y + 1;
-            end if;
-        end if;
-    end process;
+    -- Instantiate DUT
+    inst_player_move : entity work.player_move
+    port map (
+                 clk_vs_i   => clk_vs_i   ,
+                 btn_up_i   => btn_up_i   ,
+                 btn_down_i => btn_down_i ,
+                 pos_y_o    => pos_y    
+             );
 
-
-    process (pixel_x_i, pixel_y_i)
-        variable offset_x : integer range 0 to 799;
-        variable offset_y : integer range 0 to 524;
-        variable pixel    : integer range 0 to 1;
-    begin
-        rgb_o <= rgb_i;
-
-        if pixel_x_i >= pos_x and pixel_x_i < pos_x + size_x and
-           pixel_y_i >= pos_y and pixel_y_i < pos_y + size_y then
-            offset_x := conv_integer(pixel_x_i - pos_x);
-            offset_y := conv_integer(pixel_y_i - pos_y);
-
-            if bitmap(offset_y)(offset_x) = '1' then
-                pixel := 1;
-            else
-                pixel := 0;
-            end if;
-            rgb_o <= color(pixel);
-        end if;
-
-    end process;
+    -- Instantiate DUT
+    inst_player_disp : entity work.player_disp
+    port map (
+                 clk_i      => clk_i      ,
+                 pos_x_i    => pos_x      ,
+                 pos_y_i    => pos_y      ,
+                 pixel_x_i  => pixel_x_i  ,
+                 pixel_y_i  => pixel_y_i  ,
+                 rgb_i      => rgb_i      ,
+                 rgb_o      => rgb_o      
+             );
 
 end Structural;
 
