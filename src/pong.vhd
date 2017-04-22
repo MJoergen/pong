@@ -51,7 +51,7 @@ architecture Structural of pong is
 
 begin
 
-    rgb_from_background <= "01010101";
+    rgb_from_background <= "01010101" when blank = '0' else "00000000";
 
     vga_hs_o <= vga_hs;
     vga_vs_o <= vga_vs;

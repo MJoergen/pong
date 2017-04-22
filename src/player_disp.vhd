@@ -44,7 +44,7 @@ architecture Structural of player_disp is
 
 begin
 
-    process (pixel_x_i, pixel_y_i)
+    process (pixel_x_i, pixel_y_i, rgb_i, pos_x_i, pos_y_i)
         variable offset_x : integer range 0 to 799;
         variable offset_y : integer range 0 to 524;
         variable pixel    : integer range 0 to 1;

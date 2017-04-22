@@ -39,9 +39,10 @@ begin
     process (clk_vs_i)
     begin
         if rising_edge(clk_vs_i) then
-            if btn_up_i = '1' and pos_y /= "00000000000" then
+            if btn_up_i = '1' and btn_down_i = '0' and pos_y /= "00000000000" then
                 pos_y <= pos_y - 1;
-            elsif btn_down_i = '1' and pos_y /= "00110000000" then
+            end if;
+            if btn_down_i = '1' and btn_up_i = '0' and pos_y /= "00110000000" then
                 pos_y <= pos_y + 1;
             end if;
         end if;
