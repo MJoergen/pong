@@ -2,10 +2,17 @@ project    = pong
 top_module = pong
 vfiles     = pong.vhd # Top level
 
+vfiles    += vga_controller_640_60.vhd
+vfiles    += background.vhd
 vfiles    += player.vhd
 vfiles    += player_disp.vhd
 vfiles    += player_move.vhd
-vfiles    += vga_controller_640_60.vhd
+vfiles    += computer.vhd
+vfiles    += computer_disp.vhd
+vfiles    += computer_move.vhd
+vfiles    += ball.vhd
+vfiles    += ball_disp.vhd
+vfiles    += ball_move.vhd
 
 # Synthesis
 vendor     = xilinx

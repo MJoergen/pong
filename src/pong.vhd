@@ -43,15 +43,19 @@ architecture Structural of pong is
 
     signal rgb_from_background : std_logic_vector (7 downto 0);
     signal rgb_from_player     : std_logic_vector (7 downto 0);
+    signal rgb_from_computer   : std_logic_vector (7 downto 0);
+    signal rgb_from_ball       : std_logic_vector (7 downto 0);
 
     signal player_pos_y : std_logic_vector (10 downto 0);
+    signal computer_pos_y : std_logic_vector (10 downto 0);
 
     signal vga_hs : std_logic;
     signal vga_vs : std_logic;
 
-begin
+    signal ball_x : std_logic_vector (10 downto 0);
+    signal ball_y : std_logic_vector (10 downto 0);
 
-    rgb_from_background <= "01010101" when blank = '0' else "00000000";
+begin
 
     vga_hs_o <= vga_hs;
     vga_vs_o <= vga_vs;
@@ -66,6 +70,20 @@ begin
                  hcount_o  => pixel_x  ,
                  vcount_o  => pixel_y  ,
                  blank_o   => blank
+             );
+
+    -- Instantiate Background
+    inst_background : entity work.background
+    generic map (
+                    SIMULATION => SIMULATION
+                )
+    port map (
+             clk_i      => clk_i    ,
+             clk_vs_i   => vga_vs   ,
+             blank_i    => blank    ,
+             pixel_x_i  => pixel_x  ,
+             pixel_y_i  => pixel_y  ,
+             rgb_o      => rgb_from_background 
              );
 
     -- Instantiate Player
@@ -85,7 +103,42 @@ begin
              pos_y_o    => player_pos_y    
              );
 
-    vga_col_o <= rgb_from_player;
+    -- Instantiate Computer
+    inst_computer : entity work.computer
+    generic map (
+                    SIMULATION => SIMULATION
+                )
+    port map (
+             clk_i      => clk_i    ,
+             clk_vs_i   => vga_vs   ,
+             ball_x_i   => ball_x   ,
+             ball_y_i   => ball_y   ,
+             pixel_x_i  => pixel_x  ,
+             pixel_y_i  => pixel_y  ,
+             pos_y_o    => computer_pos_y    ,
+             rgb_i      => rgb_from_player   ,
+             rgb_o      => rgb_from_computer
+             );
+
+    -- Instantiate Ball
+    inst_ball : entity work.ball
+    generic map (
+                    SIMULATION => SIMULATION
+                )
+    port map (
+             clk_i      => clk_i    ,
+             clk_vs_i   => vga_vs   ,
+             pos_x_o    => ball_x   ,
+             pos_y_o    => ball_y   ,
+             player_y_i => player_pos_y ,
+             computer_y_i => computer_pos_y ,
+             pixel_x_i  => pixel_x  ,
+             pixel_y_i  => pixel_y  ,
+             rgb_i      => rgb_from_computer   ,
+             rgb_o      => rgb_from_ball
+             );
+
+    vga_col_o <= rgb_from_ball;
 
 end Structural;
 
