@@ -39,7 +39,7 @@ begin
     process (clk_vs_i)
     begin
         if rising_edge(clk_vs_i) then
-            if ball_y_i + ball_height/2 > pos_y + computer_height/2 and pos_y+1 < screen_y then
+            if ball_y_i + ball_height/2 > pos_y + computer_height/2 and pos_y+1+computer_height < screen_y then
                 pos_y <= pos_y + 1;
             end if;
             if ball_y_i + ball_height/2 < pos_y + computer_height/2 and pos_y > 1 then

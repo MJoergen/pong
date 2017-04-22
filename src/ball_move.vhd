@@ -47,7 +47,11 @@ begin
         if rising_edge(clk_vs_i) then
             if collision_i /= "00000000" then
                 pos_x <= pos_x - vel_x;
-                vel_x <= - vel_x;
+                if vel_x > 0 then
+                    vel_x <= - vel_x - 1;
+                else
+                    vel_x <= - vel_x + 1;
+                end if;
             else
                 pos_x <= pos_x + vel_x;
             end if;
