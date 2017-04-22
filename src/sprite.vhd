@@ -13,6 +13,7 @@ entity sprite is
             );
     port (
              clk_i      : in  std_logic;
+             vga_vs_i   : in  std_logic;
 
              -- Sprites
              sprites_i  : in  sprite_array_t;
@@ -24,7 +25,6 @@ entity sprite is
              rgb_o      : out std_logic_vector (7  downto 0);
 
              -- Collision detect
-             col_clr_i  : in std_logic;
              collision_o : out std_logic_vector (0 to 7)
          );
 
@@ -37,6 +37,7 @@ architecture Structural of sprite is
 
     signal active_pixel : std_logic_vector (0 to 7) := "00000000";
     signal collision    : std_logic_vector (0 to 7) := "00000000";
+    signal vga_vs_reg   : std_logic;
 
 begin
 
@@ -88,7 +89,9 @@ begin
     begin
         if rising_edge(clk_i) then
 
-            if col_clr_i = '1' then
+            vga_vs_reg <= vga_vs_i;
+
+            if vga_vs_i = '1' and vga_vs_reg = '0' then
                 collision <= "00000000";
             end if;
 

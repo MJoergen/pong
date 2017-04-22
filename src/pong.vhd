@@ -54,6 +54,7 @@ architecture Structural of pong is
 
     signal sprites : sprite_array_t := (others => NOSPRITE);
     signal collision : std_logic_vector (0 to 7);
+    signal col_clr   : std_logic;
 
     constant player_bitmap : pattern_t := (
         others => "111111100000000000000000");
@@ -130,8 +131,8 @@ begin
     inst_ball_move : entity work.ball_move
     port map (
                  clk_vs_i     => vga_vs     ,
-                 player_y_i   => player_y   ,
-                 computer_y_i => computer_y ,
+                 collision_i  => collision  ,
+                 col_clr_o    => col_clr    ,
                  pos_x_o      => ball_x     ,
                  pos_y_o      => ball_y    
              );
@@ -139,12 +140,12 @@ begin
     inst_sprites : entity work.sprite
     port map (
                  clk_i       => clk_i      ,
+                 vga_vs_i    => vga_vs     ,
                  sprites_i   => sprites    ,
                  pixel_x_i   => pixel_x    ,
                  pixel_y_i   => pixel_y    ,
                  rgb_i       => "01010101" , -- Background color
                  rgb_o       => vga_col    ,
-                 col_clr_i   => '0'        ,
                  collision_o => collision
              );
 

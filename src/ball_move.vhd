@@ -14,9 +14,9 @@ entity ball_move is
              -- Clock
              clk_vs_i     : in  std_logic;  -- 60 Hz
 
-             -- Input control
-             player_y_i   : in  std_logic_vector (10 downto 0);
-             computer_y_i : in  std_logic_vector (10 downto 0);
+             -- Collision detect
+             collision_i  : in  std_logic_vector (0 to 7);
+             col_clr_o    : out std_logic;
 
              -- Position
              pos_x_o      : out std_logic_vector (10 downto 0);
@@ -27,10 +27,10 @@ end ball_move;
 
 architecture Structural of ball_move is
 
-    signal vel_x : integer := 4;
-    signal vel_y : integer := 4;
-    signal pos_x : std_logic_vector (10 downto 0) := "00010000000";
-    signal pos_y : std_logic_vector (10 downto 0) := "00010000000";
+    signal vel_x : integer := 1;
+    signal vel_y : integer := 1;
+    signal pos_x : std_logic_vector (10 downto 0) := "00100000000";
+    signal pos_y : std_logic_vector (10 downto 0) := "00100000000";
 
     constant screen_y : integer := 480; -- Vertical size of screen
 
@@ -39,10 +39,17 @@ begin
     pos_x_o <= pos_x;
     pos_y_o <= pos_y;
 
+    col_clr_o <= '0';
+
     process (clk_vs_i)
     begin
         if rising_edge(clk_vs_i) then
-            pos_x <= pos_x + vel_x;
+            if collision_i /= "00000000" then
+                pos_x <= pos_x - vel_x;
+                vel_x <= - vel_x;
+            else
+                pos_x <= pos_x + vel_x;
+            end if;
 
             if vel_y > 0 then -- We are moving down
                 if pos_y > screen_y - vel_y then
