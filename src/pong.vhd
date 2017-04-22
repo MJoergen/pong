@@ -20,12 +20,12 @@ entity pong is
              btn_i     : in  std_logic_vector (3 downto 0);
 
              -- Output LEDs
-             led_o     : out std_logic_vector (7 downto 0);
+--             led_o     : out std_logic_vector (7 downto 0)
 
              -- Output 7-segment display
-             seg_ca_o  : out std_logic_vector (6 downto 0);
-             seg_dp_o  : out std_logic;
-             seg_an_o  : out std_logic_vector (3 downto 0);
+--             seg_ca_o  : out std_logic_vector (6 downto 0);
+--             seg_dp_o  : out std_logic;
+--             seg_an_o  : out std_logic_vector (3 downto 0);
 
              -- Output to VGA monitor
              vga_hs_o  : out std_logic;
