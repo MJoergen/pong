@@ -53,6 +53,7 @@ architecture Structural of pong is
     signal vga_vs : std_logic;
 
     signal sprites : sprite_array_t := (others => NOSPRITE);
+    signal collision : std_logic_vector (0 to 7);
 
     constant player_bitmap : pattern_t := (
         others => "111111100000000000000000");
@@ -85,6 +86,12 @@ begin
     sprites(2).pattern <= ball_bitmap;
     sprites(2).color   <= "11100000";
     sprites(2).active  <= '1';
+
+    sprites(3).active  <= '0';
+    sprites(4).active  <= '0';
+    sprites(5).active  <= '0';
+    sprites(6).active  <= '0';
+    sprites(7).active  <= '0';
 
     vga_hs_o <= vga_hs;
     vga_vs_o <= vga_vs;
@@ -131,11 +138,12 @@ begin
 
     inst_sprites : entity work.sprite
     port map (
-                 sprites_i  => sprites ,
-                 pixel_x_i  => pixel_x ,
-                 pixel_y_i  => pixel_y ,
-                 rgb_i      => "01010101" , -- Background color
-                 rgb_o      => vga_col
+                 sprites_i   => sprites    ,
+                 pixel_x_i   => pixel_x    ,
+                 pixel_y_i   => pixel_y    ,
+                 rgb_i       => "01010101" , -- Background color
+                 rgb_o       => vga_col    ,
+                 collision_o => collision
              );
 
     vga_col_o <= vga_col when blank = '0' else "00000000";

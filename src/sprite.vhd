@@ -19,7 +19,9 @@ entity sprite is
              pixel_x_i  : in  std_logic_vector (10 downto 0);
              pixel_y_i  : in  std_logic_vector (10 downto 0);
              rgb_i      : in  std_logic_vector (7  downto 0);
-             rgb_o      : out std_logic_vector (7  downto 0)
+             rgb_o      : out std_logic_vector (7  downto 0);
+
+             collision_o : out std_logic_vector (0 to 7)
          );
 
 end sprite;
@@ -35,14 +37,15 @@ begin
         variable offset_x : integer range 0 to SIZE_X-1;
         variable offset_y : integer range 0 to SIZE_Y-1;
 
-        variable pos_x    : std_logic_vector (10 downto 0);
-        variable pos_y    : std_logic_vector (10 downto 0);
-        variable pattern  : pattern_t;
-        variable color    : std_logic_vector (7 downto 0);
-        variable active   : std_logic;
+        variable pos_x     : std_logic_vector (10 downto 0);
+        variable pos_y     : std_logic_vector (10 downto 0);
+        variable pattern   : pattern_t;
+        variable color     : std_logic_vector (7 downto 0);
+        variable active    : std_logic;
 
     begin
         rgb_o <= rgb_i; -- Default is transparent
+        collision_o <= "00000000"; -- No collisions.
 
         for i in 0 to 7 loop -- Loop through each sprite
             pos_x   := sprites_i(i).pos_x;
@@ -59,6 +62,7 @@ begin
 
                     if pattern(offset_y)(offset_x) = '1' then
                         rgb_o <= color;
+                        collision_o(i) <= '1';
                     end if;
 
                 end if;
