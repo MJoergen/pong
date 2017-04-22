@@ -48,10 +48,13 @@ begin
                  pos_y_o    => pos_y   
              );
 
-    -- Instantiate display logic
-    inst_computer_disp : entity work.computer_disp
+    -- Instantiate DUT
+    inst_ball_sprite : entity work.sprite
+    generic map (
+                COLOR   => "11111111",
+                PATTERN => (others => "111111111000000000000000")
+                )
     port map (
-                 clk_i      => clk_i      ,
                  pos_x_i    => pos_x      ,
                  pos_y_i    => pos_y      ,
                  pixel_x_i  => pixel_x_i  ,
@@ -59,6 +62,7 @@ begin
                  rgb_i      => rgb_i      ,
                  rgb_o      => rgb_o      
              );
+
 
 end Structural;
 

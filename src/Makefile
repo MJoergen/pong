@@ -11,7 +11,8 @@ vfiles    += computer.vhd
 vfiles    += computer_disp.vhd
 vfiles    += computer_move.vhd
 vfiles    += ball.vhd
-vfiles    += ball_disp.vhd
+vfiles    += sprite_pkg.vhd
+vfiles    += sprite.vhd
 vfiles    += ball_move.vhd
 
 # Synthesis

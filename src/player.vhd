@@ -50,9 +50,12 @@ begin
              );
 
     -- Instantiate DUT
-    inst_player_disp : entity work.player_disp
+    inst_ball_sprite : entity work.sprite
+    generic map (
+                COLOR   => "11111111",
+                PATTERN => (others => "111111111000000000000000")
+                )
     port map (
-                 clk_i      => clk_i      ,
                  pos_x_i    => pos_x      ,
                  pos_y_i    => pos_y      ,
                  pixel_x_i  => pixel_x_i  ,
