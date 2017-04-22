@@ -32,7 +32,7 @@ architecture Structural of ball_move is
     signal pos_x : std_logic_vector (13 downto 0) := "00100000000000";
     signal pos_y : std_logic_vector (13 downto 0) := "00100000000000";
 
-    constant screen_y : integer := 480; -- Vertical size of screen
+    constant screen_y : integer := 480*8; -- Vertical size of screen
     constant height : integer := 7; -- Vertical size of sprite
 
 begin
@@ -53,7 +53,7 @@ begin
             end if;
 
             if vel_y > 0 then -- We are moving down
-                if pos_y > screen_y - vel_y - height then
+                if pos_y + vel_y + height > screen_y then
                     pos_y <= pos_y - vel_y;
                     vel_y <=  - vel_y;
                 else
