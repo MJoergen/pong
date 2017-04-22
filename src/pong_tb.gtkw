@@ -1,0 +1,34 @@
+[*]
+[*] GTKWave Analyzer v3.3.78 (w)1999-2016 BSI
+[*] Sat Apr 22 08:36:33 2017
+[*]
+[dumpfile] "/home/mike/git/pong/src/pong_tb.ghw"
+[dumpfile_mtime] "Sat Apr 22 08:35:32 2017"
+[dumpfile_size] 11013142
+[savefile] "/home/mike/git/pong/src/pong_tb.gtkw"
+[timestart] 8201767900000
+[size] 1920 1016
+[pos] -1 -1
+*-27.378740 8202256500000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] top.
+[treeopen] top.pong_tb.
+[treeopen] top.pong_tb.inst_pong.
+[sst_width] 229
+[signals_width] 237
+[sst_expanded] 1
+[sst_vpaned_height] 284
+@28
+top.pong_tb.clk
+@22
+#{top.pong_tb.btn[3:0]} top.pong_tb.btn[3] top.pong_tb.btn[2] top.pong_tb.btn[1] top.pong_tb.btn[0]
+@28
+top.pong_tb.vga_vs
+top.pong_tb.vga_hs
+@22
+#{top.pong_tb.vga_col[7:0]} top.pong_tb.vga_col[7] top.pong_tb.vga_col[6] top.pong_tb.vga_col[5] top.pong_tb.vga_col[4] top.pong_tb.vga_col[3] top.pong_tb.vga_col[2] top.pong_tb.vga_col[1] top.pong_tb.vga_col[0]
+@25
+#{top.pong_tb.inst_pong.pixel_x[9:0]} top.pong_tb.inst_pong.pixel_x[9] top.pong_tb.inst_pong.pixel_x[8] top.pong_tb.inst_pong.pixel_x[7] top.pong_tb.inst_pong.pixel_x[6] top.pong_tb.inst_pong.pixel_x[5] top.pong_tb.inst_pong.pixel_x[4] top.pong_tb.inst_pong.pixel_x[3] top.pong_tb.inst_pong.pixel_x[2] top.pong_tb.inst_pong.pixel_x[1] top.pong_tb.inst_pong.pixel_x[0]
+#{top.pong_tb.inst_pong.pixel_y[9:0]} top.pong_tb.inst_pong.pixel_y[9] top.pong_tb.inst_pong.pixel_y[8] top.pong_tb.inst_pong.pixel_y[7] top.pong_tb.inst_pong.pixel_y[6] top.pong_tb.inst_pong.pixel_y[5] top.pong_tb.inst_pong.pixel_y[4] top.pong_tb.inst_pong.pixel_y[3] top.pong_tb.inst_pong.pixel_y[2] top.pong_tb.inst_pong.pixel_y[1] top.pong_tb.inst_pong.pixel_y[0]
+#{top.pong_tb.inst_pong.player_pos_y[10:0]} top.pong_tb.inst_pong.player_pos_y[10] top.pong_tb.inst_pong.player_pos_y[9] top.pong_tb.inst_pong.player_pos_y[8] top.pong_tb.inst_pong.player_pos_y[7] top.pong_tb.inst_pong.player_pos_y[6] top.pong_tb.inst_pong.player_pos_y[5] top.pong_tb.inst_pong.player_pos_y[4] top.pong_tb.inst_pong.player_pos_y[3] top.pong_tb.inst_pong.player_pos_y[2] top.pong_tb.inst_pong.player_pos_y[1] top.pong_tb.inst_pong.player_pos_y[0]
+[pattern_trace] 1
+[pattern_trace] 0
