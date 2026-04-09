@@ -18,7 +18,7 @@ architecture simulation of tb_pong is
   signal btn_up    : std_logic;
   signal btn_down  : std_logic;
   signal sprites   : sprite_array_type;
-  signal collision : std_logic_vector(0 to 7);
+  signal collision : std_logic_vector(0 to C_NUM_SPRITES - 1);
 
 begin
 
@@ -53,11 +53,6 @@ begin
     assert sprites(0).active  = '1';
     assert sprites(1).active  = '1';
     assert sprites(2).active  = '1';
-    assert sprites(3).active  = '0';
-    assert sprites(4).active  = '0';
-    assert sprites(5).active  = '0';
-    assert sprites(6).active  = '0';
-    assert sprites(7).active  = '0';
 
     assert sprites(0).pos_x  = 0;
     assert sprites(0).pos_y  = 256;

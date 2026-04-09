@@ -21,17 +21,17 @@ entity sprite is
     rgb_o       : out   std_logic_vector(23 downto 0);
 
     -- Collision detect
-    collision_o : out   std_logic_vector(0 to 7)
+    collision_o : out   std_logic_vector(0 to C_NUM_SPRITES - 1)
   );
 end entity sprite;
 
 architecture synthesis of sprite is
 
-  constant C_SIZE_X : natural                      := 16;
-  constant C_SIZE_Y : natural                      := 16;
+  constant C_SIZE_X : natural                                      := 16;
+  constant C_SIZE_Y : natural                                      := 16;
 
-  signal   active_pixel : std_logic_vector(0 to 7) := (others => '0');
-  signal   collision    : std_logic_vector(0 to 7) := (others => '0');
+  signal   active_pixel : std_logic_vector(0 to C_NUM_SPRITES - 1) := (others => '0');
+  signal   collision    : std_logic_vector(0 to C_NUM_SPRITES - 1) := (others => '0');
 
   signal   vsync_d : std_logic;
 
@@ -64,10 +64,10 @@ begin
 
   begin
     if rising_edge(clk_i) then
-      rgb_o        <= rgb_i;                                              -- Default is transparent
+      rgb_o        <= rgb_i;                                                              -- Default is transparent
 
-      active_pixel <= (others => '0');                                    -- No collisions.
-      for i in 0 to 7 loop                                                -- Loop through each sprite
+      active_pixel <= (others => '0');                                                    -- No collisions.
+      for i in 0 to C_NUM_SPRITES - 1 loop                                                -- Loop through each sprite
         pos_x_v  := sprites_i(i).pos_x;
         pos_y_v  := sprites_i(i).pos_y;
         bitmap_v := sprites_i(i).bitmap;

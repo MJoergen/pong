@@ -16,7 +16,7 @@ entity vga_wrapper is
     vga_clk_i       : in    std_logic;
     vga_rst_i       : in    std_logic;
     vga_sprites_i   : in    sprite_array_type;
-    vga_collision_o : out   std_logic_vector(0 to 7);
+    vga_collision_o : out   std_logic_vector(0 to C_NUM_SPRITES - 1);
 
     vga_red_o       : out   std_logic_vector(7 downto 0);
     vga_green_o     : out   std_logic_vector(7 downto 0);

@@ -71,7 +71,7 @@ entity mega65r6 is
     core_bat_up_o           : out   std_logic;
     core_bat_down_o         : out   std_logic;
     core_sprites_i          : in    sprite_array_type;
-    core_collision_o        : out   std_logic_vector(0 to 7)
+    core_collision_o        : out   std_logic_vector(0 to C_NUM_SPRITES - 1)
   );
 end entity mega65r6;
 

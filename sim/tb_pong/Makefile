@@ -1,5 +1,4 @@
 # List of source files
-SRC += $(SRC_DIR)/background.vhd
 SRC += $(SRC_DIR)/ball_move.vhd
 SRC += $(SRC_DIR)/computer_move.vhd
 SRC += $(SRC_DIR)/player_move.vhd

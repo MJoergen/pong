@@ -4,6 +4,9 @@ library ieee;
 
 -- This controls the player
 
+library work;
+  use work.sprite_pkg.all;
+
 entity ball_move is
   generic (
     G_SCREEN_Y : integer := 480 * 8; -- Vertical size of screen
@@ -16,7 +19,7 @@ entity ball_move is
     ce_i        : in    std_logic;
 
     -- Collision detect
-    collision_i : in    std_logic_vector(0 to 7);
+    collision_i : in    std_logic_vector(0 to C_NUM_SPRITES - 1);
     col_clr_o   : out   std_logic;
 
     -- Position
@@ -42,7 +45,7 @@ begin
   pos_proc : process (clk_i, ce_i)
   begin
     if rising_edge(clk_i) and ce_i = '1' then
-      if collision_i /= "00000000" then
+      if or (collision_i) = '1' then
         pos_x <= pos_x - vel_x;
         if vel_x > 0 then
           vel_x <= - vel_x - 1;
@@ -68,6 +71,7 @@ begin
           pos_y <= pos_y + vel_y;
         end if;
       end if;
+
       if rst_i = '1' then
         pos_x <= 256;
         pos_y <= 256;

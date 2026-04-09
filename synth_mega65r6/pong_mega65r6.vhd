@@ -71,7 +71,7 @@ architecture synthesis of pong_mega65r6 is
   signal core_bat_up    : std_logic;
   signal core_bat_down  : std_logic;
   signal core_sprites   : sprite_array_type;
-  signal core_collision : std_logic_vector(0 to 7);
+  signal core_collision : std_logic_vector(0 to C_NUM_SPRITES - 1);
 
   signal vga_vs_d : std_logic;
 

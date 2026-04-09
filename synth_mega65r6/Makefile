@@ -6,7 +6,6 @@
 
 # List of source files
 SRC_DIR = ../src
-SRC += $(SRC_DIR)/background.vhd
 SRC += $(SRC_DIR)/ball_move.vhd
 SRC += $(SRC_DIR)/computer_move.vhd
 SRC += $(SRC_DIR)/player_move.vhd
@@ -16,6 +15,7 @@ SRC += $(SRC_DIR)/sprite_pkg.vhd
 
 # List of platform specific files
 PLATFORM_SRC_DIR = .
+SRC += $(PLATFORM_SRC_DIR)/background.vhd
 SRC += $(PLATFORM_SRC_DIR)/clk_rst.vhd
 SRC += $(PLATFORM_SRC_DIR)/mega65kbd_to_matrix.vhd
 SRC += $(PLATFORM_SRC_DIR)/mega65r6.vhd

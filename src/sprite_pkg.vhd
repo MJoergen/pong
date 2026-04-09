@@ -24,17 +24,20 @@ package sprite_pkg is
   constant C_COLOR_DARK_GREY  : std_logic_vector(23 downto 0) := X"555555";
   constant C_COLOR_LIGHT_GREY : std_logic_vector(23 downto 0) := X"AAAAAA";
 
-  constant C_BITMAP_OFF : bitmap_type := (others => (others => '0'));
-  constant C_BITMAP_ON  : bitmap_type := (others => (others => '1'));
+  constant C_BITMAP_OFF       : bitmap_type                   := (others => (others => '0'));
+  constant C_BITMAP_ON        : bitmap_type                   := (others => (others => '1'));
 
-  constant C_NOSPRITE : sprite_type := (
-                                         pos_x  => 0,
-                                         pos_y  => 0,
-                                         bitmap => C_BITMAP_OFF,
-                                         color  => C_COLOR_BLACK,
-                                         active => '0');
+  constant C_NOSPRITE         : sprite_type                   := (
+                                                                   pos_x  => 0,
+                                                                   pos_y  => 0,
+                                                                   bitmap => C_BITMAP_OFF,
+                                                                   color  => C_COLOR_BLACK,
+                                                                   active => '0'
+                                                                 );
 
-  type     sprite_array_type is array (0 to 7) of sprite_type;
+  constant C_NUM_SPRITES      : natural                       := 3;
+
+  type     sprite_array_type is array (0 to C_NUM_SPRITES - 1) of sprite_type;
 
 end package sprite_pkg;
 

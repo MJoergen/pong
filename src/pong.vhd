@@ -15,7 +15,7 @@ entity pong is
     btn_down_i  : in    std_logic;
 
     sprites_o   : out   sprite_array_type;
-    collision_i : in    std_logic_vector(0 to 7)
+    collision_i : in    std_logic_vector(0 to C_NUM_SPRITES - 1)
   );
 end entity pong;
 
@@ -26,11 +26,11 @@ architecture synthesis of pong is
   signal   ball_x     : natural range 0 to 2047;
   signal   ball_y     : natural range 0 to 2047;
 
-  signal   sprites : sprite_array_type   := (others => C_NOSPRITE);
+  signal   sprites : sprite_array_type     := (others => C_NOSPRITE);
 
   signal   col_clr : std_logic;
 
-  constant C_BITMAP_PLAYER : bitmap_type := (
+  constant C_BITMAP_PLAYER : bitmap_type   := (
                                               0  => "1111111100000000",
                                               1  => "1111111100000000",
                                               2  => "1111111100000000",
@@ -51,7 +51,7 @@ architecture synthesis of pong is
 
   constant C_BITMAP_COMPUTER : bitmap_type := C_BITMAP_PLAYER;
 
-  constant C_BITMAP_BALL : bitmap_type   := (
+  constant C_BITMAP_BALL : bitmap_type     := (
                                               0  => "0000000000000000",
                                               1  => "0000111111000000",
                                               2  => "0001111111100000",
@@ -70,12 +70,12 @@ architecture synthesis of pong is
                                               15 => "0000000000000000"
                                             );
 
-  constant C_SPRITE_PLAYER   : natural   := 0;
-  constant C_SPRITE_COMPUTER : natural   := 1;
-  constant C_SPRITE_BALL     : natural   := 2;
+  constant C_SPRITE_PLAYER   : natural     := 0;
+  constant C_SPRITE_COMPUTER : natural     := 1;
+  constant C_SPRITE_BALL     : natural     := 2;
 
-  constant C_POS_X_PLAYER   : natural    := 0;
-  constant C_POS_X_COMPUTER : natural    := 512;
+  constant C_POS_X_PLAYER   : natural      := 0;
+  constant C_POS_X_COMPUTER : natural      := 512;
 
 begin
 
