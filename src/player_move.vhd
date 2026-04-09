@@ -1,46 +1,48 @@
 library ieee;
   use ieee.std_logic_1164.all;
-  use ieee.std_logic_unsigned.all;
+  use ieee.numeric_std.all;
 
 -- This controls the player
 
 entity player_move is
   generic (
-    SIMULATION : boolean := false;
-    FREQ       : integer := 25000000 -- Input clock frequency
+    G_SCREEN_Y : natural := 480; -- Vertical size of screen
+    G_HEIGHT   : natural := 21   -- Vertical size of sprite
   );
   port (
     -- Clock
-    clk_vs_i   : in    std_logic; -- 60 Hz
+    clk_i      : in    std_logic;
+    rst_i      : in    std_logic;
+    ce_i       : in    std_logic;
 
     -- Input control
     btn_up_i   : in    std_logic;
     btn_down_i : in    std_logic;
 
     -- Position
-    pos_y_o    : out   std_logic_vector(10 downto 0)
+    pos_y_o    : out   natural range 0 to 2047
   );
 end entity player_move;
 
 architecture structural of player_move is
 
-  signal   pos_y : std_logic_vector(10 downto 0) := "00100000000";
-
-  constant C_SCREEN_Y : integer                  := 480; -- Vertical size of screen
-  constant C_HEIGHT   : integer                  := 21;  -- Vertical size of sprite
+  signal pos_y : natural range 0 to 2047 := 256;
 
 begin
 
   pos_y_o <= pos_y;
 
-  pos_proc : process (clk_vs_i)
+  pos_proc : process (clk_i, ce_i)
   begin
-    if rising_edge(clk_vs_i) then
+    if rising_edge(clk_i) and ce_i = '1' then
       if btn_up_i = '1' and btn_down_i = '0' and pos_y >= 2 then
         pos_y <= pos_y - 2;
       end if;
-      if btn_down_i = '1' and btn_up_i = '0' and pos_y < C_SCREEN_Y - C_HEIGHT - 2 then
+      if btn_down_i = '1' and btn_up_i = '0' and pos_y < G_SCREEN_Y - G_HEIGHT - 2 then
         pos_y <= pos_y + 2;
+      end if;
+      if rst_i = '1' then
+        pos_y <= 256;
       end if;
     end if;
   end process pos_proc;

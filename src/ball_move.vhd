@@ -6,43 +6,42 @@ library ieee;
 
 entity ball_move is
   generic (
-    SIMULATION : boolean := false;
-    FREQ       : integer := 25000000 -- Input clock frequency
+    G_SCREEN_Y : integer := 480 * 8; -- Vertical size of screen
+    G_HEIGHT   : integer := 7        -- Vertical size of sprite
   );
   port (
     -- Clock
-    clk_vs_i    : in    std_logic; -- 60 Hz
+    clk_i       : in    std_logic;
+    rst_i       : in    std_logic;
+    ce_i        : in    std_logic;
 
     -- Collision detect
     collision_i : in    std_logic_vector(0 to 7);
     col_clr_o   : out   std_logic;
 
     -- Position
-    pos_x_o     : out   std_logic_vector(10 downto 0);
-    pos_y_o     : out   std_logic_vector(10 downto 0)
+    pos_x_o     : out   natural range 0 to 2047;
+    pos_y_o     : out   natural range 0 to 2047
   );
 end entity ball_move;
 
 architecture structural of ball_move is
 
-  signal   vel_x : integer                       := 8;
-  signal   vel_y : integer                       := 8;
-  signal   pos_x : std_logic_vector(13 downto 0) := "00100000000000";
-  signal   pos_y : std_logic_vector(13 downto 0) := "00100000000000";
-
-  constant C_SCREEN_Y : integer                  := 480 * 8; -- Vertical size of screen
-  constant C_HEIGHT   : integer                  := 7;       -- Vertical size of sprite
+  signal vel_x : integer                 := 8;
+  signal vel_y : integer                 := 8;
+  signal pos_x : natural range 0 to 2047 := 256;
+  signal pos_y : natural range 0 to 2047 := 256;
 
 begin
 
-  pos_x_o   <= pos_x(13 downto 3);
-  pos_y_o   <= pos_y(13 downto 3);
+  pos_x_o   <= pos_x / 8;
+  pos_y_o   <= pos_y / 8;
 
   col_clr_o <= '0';
 
-  pos_proc : process (clk_vs_i)
+  pos_proc : process (clk_i, ce_i)
   begin
-    if rising_edge(clk_vs_i) then
+    if rising_edge(clk_i) and ce_i = '1' then
       if collision_i /= "00000000" then
         pos_x <= pos_x - vel_x;
         if vel_x > 0 then
@@ -55,7 +54,7 @@ begin
       end if;
 
       if vel_y > 0 then                               -- We are moving down
-        if pos_y + vel_y + C_HEIGHT > C_SCREEN_Y then
+        if pos_y + vel_y + G_HEIGHT > G_SCREEN_Y then
           pos_y <= pos_y - vel_y;
           vel_y <= - vel_y;
         else
@@ -68,6 +67,10 @@ begin
         else
           pos_y <= pos_y + vel_y;
         end if;
+      end if;
+      if rst_i = '1' then
+        pos_x <= 256;
+        pos_y <= 256;
       end if;
     end if;
   end process pos_proc;

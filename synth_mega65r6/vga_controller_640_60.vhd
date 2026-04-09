@@ -63,8 +63,7 @@
 
 library ieee;
   use ieee.std_logic_1164.all;
-  use ieee.std_logic_arith.all;
-  use ieee.std_logic_unsigned.all;
+  use ieee.numeric_std_unsigned.all;
 
 -- simulation library
 -- library UNISIM;
@@ -75,13 +74,13 @@ library ieee;
 
 entity vga_controller_640_60 is
   port (
-    rst_i     : in    std_logic;
     vga_clk_i : in    std_logic;
+    vga_rst_i : in    std_logic;
 
     hs_o      : out   std_logic;
     vs_o      : out   std_logic;
-    hcount_o  : out   std_logic_vector(10 downto 0);
-    vcount_o  : out   std_logic_vector(10 downto 0);
+    hcount_o  : out   natural range 0 to 2047;
+    vcount_o  : out   natural range 0 to 2047;
     blank_o   : out   std_logic
   );
 end entity vga_controller_640_60;
@@ -126,8 +125,8 @@ architecture behavioral of vga_controller_640_60 is
 begin
 
   -- output horizontal and vertical counters
-  hcount_o     <= hcounter;
-  vcount_o     <= vcounter;
+  hcount_o     <= to_integer(hcounter);
+  vcount_o     <= to_integer(vcounter);
 
   -- blank is active when outside screen visible area
   -- color output should be blacked (put on 0) when blank in active
@@ -140,7 +139,7 @@ begin
   h_count_proc : process (vga_clk_i)
   begin
     if rising_edge(vga_clk_i) then
-      if rst_i = '1' then
+      if vga_rst_i = '1' then
         hcounter <= (others => '0');
       elsif hcounter = HMAX then
         hcounter <= (others => '0');
@@ -156,7 +155,7 @@ begin
   v_count_proc : process (vga_clk_i)
   begin
     if rising_edge(vga_clk_i) then
-      if rst_i = '1' then
+      if vga_rst_i = '1' then
         vcounter <= (others => '0');
       elsif hcounter = HMAX then
         if vcounter = VMAX then

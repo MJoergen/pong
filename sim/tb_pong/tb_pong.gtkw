@@ -1,0 +1,57 @@
+[*]
+[*] GTKWave Analyzer v3.3.104 (w)1999-2020 BSI
+[*] Thu Apr  9 07:54:53 2026
+[*]
+[dumpfile] "/home/mfj/git/PRIVATE/MJoergen/pong/sim/tb_pong/tb_pong.ghw"
+[dumpfile_mtime] "Thu Apr  9 07:52:20 2026"
+[dumpfile_size] 24530
+[savefile] "/home/mfj/git/PRIVATE/MJoergen/pong/sim/tb_pong/tb_pong.gtkw"
+[timestart] 0
+[size] 1278 876
+[pos] -228 -224
+*-25.615318 152900000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] top.
+[treeopen] top.tb_pong.
+[treeopen] top.tb_pong.pong_inst.
+[treeopen] top.tb_pong.pong_inst.sprites_o.
+[sst_width] 210
+[signals_width] 231
+[sst_expanded] 1
+[sst_vpaned_height] 239
+@28
+top.tb_pong.pong_inst.clk_i
+top.tb_pong.pong_inst.rst_i
+top.tb_pong.pong_inst.ce_i
+top.tb_pong.pong_inst.btn_up_i
+top.tb_pong.pong_inst.btn_down_i
+@800200
+-sprites_0
+@420
+top.tb_pong.pong_inst.sprites_o[0].pos_x
+top.tb_pong.pong_inst.sprites_o[0].pos_y
+@28
+top.tb_pong.pong_inst.sprites_o[0].active
+@1000200
+-sprites_0
+@800200
+-sprites_1
+@420
+top.tb_pong.pong_inst.sprites_o[1].pos_x
+top.tb_pong.pong_inst.sprites_o[1].pos_y
+@28
+top.tb_pong.pong_inst.sprites_o[1].active
+@1000200
+-sprites_1
+@800200
+-sprites_2
+@420
+top.tb_pong.pong_inst.sprites_o[2].pos_x
+top.tb_pong.pong_inst.sprites_o[2].pos_y
+@28
+top.tb_pong.pong_inst.sprites_o[2].active
+@1000200
+-sprites_2
+@22
+#{top.tb_pong.pong_inst.collision_i[0:7]} top.tb_pong.pong_inst.collision_i[0] top.tb_pong.pong_inst.collision_i[1] top.tb_pong.pong_inst.collision_i[2] top.tb_pong.pong_inst.collision_i[3] top.tb_pong.pong_inst.collision_i[4] top.tb_pong.pong_inst.collision_i[5] top.tb_pong.pong_inst.collision_i[6] top.tb_pong.pong_inst.collision_i[7]
+[pattern_trace] 1
+[pattern_trace] 0
