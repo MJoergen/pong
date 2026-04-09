@@ -361,10 +361,10 @@ set_property -dict {PACKAGE_PIN D20  IOSTANDARD LVCMOS33} [get_ports {joystick_5
 ## PLACEMENT CONSTRAINTS
 ################################
 
-## Place Keyboard close to I/O pins
-#create_pblock pblock_m65driver
-#add_cells_to_pblock pblock_m65driver [get_cells [list i_framework/i_m2m_keyb/m65driver]]
-#resize_pblock pblock_m65driver -add {SLICE_X0Y225:SLICE_X7Y243}
+# Place Keyboard close to I/O pins
+create_pblock pblock_m65driver
+add_cells_to_pblock pblock_m65driver [get_cells [list mega65r6_inst/mega65kbd_to_matrix_inst]];
+resize_pblock pblock_m65driver -add {SLICE_X0Y225:SLICE_X7Y243}
 
 ## Place SD card controller in the middle between the left and right FPGA boundary because the output ports are at the opposide edges
 #create_pblock pblock_sdcard
@@ -373,7 +373,7 @@ set_property -dict {PACKAGE_PIN D20  IOSTANDARD LVCMOS33} [get_ports {joystick_5
 
 # Place phase-shifted VGA output registers near the actual output buffers
 create_pblock pblock_vga
-add_cells_to_pblock pblock_vga [get_cells [list mega65r6_inst/vga_controller_640_60_inst]];
+add_cells_to_pblock pblock_vga [get_cells [list mega65r6_inst/vga_wrapper_inst]];
 resize_pblock pblock_vga -add SLICE_X0Y75:SLICE_X5Y99
 
 

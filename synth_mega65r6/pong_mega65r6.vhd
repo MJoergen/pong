@@ -73,6 +73,8 @@ architecture synthesis of pong_mega65r6 is
   signal core_sprites   : sprite_array_type;
   signal core_collision : std_logic_vector(0 to 7);
 
+  signal vga_vs_d : std_logic;
+
 begin
 
   mega65r6_inst : entity work.mega65r6
@@ -121,13 +123,12 @@ begin
       -- Connect to Game Logic
       core_clk_o              => core_clk,
       core_rst_o              => core_rst,
+      core_ce_o               => core_ce,
       core_bat_up_o           => core_bat_up,
       core_bat_down_o         => core_bat_down,
       core_sprites_i          => core_sprites,
       core_collision_o        => core_collision
     ); -- mega65r6_inst : entity work.mega65r6
-
-  core_ce <= '1'; -- TBD
 
   pong_inst : entity work.pong
     port map (

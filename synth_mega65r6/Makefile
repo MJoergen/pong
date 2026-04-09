@@ -17,10 +17,13 @@ SRC += $(SRC_DIR)/sprite_pkg.vhd
 # List of platform specific files
 PLATFORM_SRC_DIR = .
 SRC += $(PLATFORM_SRC_DIR)/clk_rst.vhd
+SRC += $(PLATFORM_SRC_DIR)/mega65kbd_to_matrix.vhd
 SRC += $(PLATFORM_SRC_DIR)/mega65r6.vhd
 SRC += $(PLATFORM_SRC_DIR)/pong_mega65r6.vhd
 SRC += $(PLATFORM_SRC_DIR)/sprite.vhd
-SRC += $(PLATFORM_SRC_DIR)/vga_controller_640_60.vhd
+SRC += $(PLATFORM_SRC_DIR)/video_modes_pkg.vhd
+SRC += $(PLATFORM_SRC_DIR)/video_sync.vhd
+SRC += $(PLATFORM_SRC_DIR)/vga_wrapper.vhd
 
 # Top level entity
 TOP = pong_mega65r6

@@ -5,6 +5,9 @@ library ieee;
 library work;
   use work.sprite_pkg.all;
 
+library work;
+  use work.video_modes_pkg.all;
+
 entity mega65r6 is
   port (
     -- Onboard crystal oscillator = 100 MHz
@@ -64,6 +67,7 @@ entity mega65r6 is
     -- Connect to Core
     core_clk_o              : out   std_logic;
     core_rst_o              : out   std_logic;
+    core_ce_o               : out   std_logic;
     core_bat_up_o           : out   std_logic;
     core_bat_down_o         : out   std_logic;
     core_sprites_i          : in    sprite_array_type;
@@ -73,15 +77,16 @@ end entity mega65r6;
 
 architecture synthesis of mega65r6 is
 
-  signal vga_clk : std_logic;
-  signal vga_rst : std_logic;
+  constant C_VIDEO_MODE : video_modes_type := C_VIDEO_MODE_800_600_60;
 
-  signal pixel_x : natural range 0 to 2047;
-  signal pixel_y : natural range 0 to 2047;
-  signal blank   : std_logic;
-  signal vga_hs  : std_logic;
-  signal vga_vs  : std_logic;
-  signal vga_col : std_logic_vector(23 downto 0);
+  signal   vga_clk  : std_logic;
+  signal   vga_rst  : std_logic;
+  signal   vga_vs_d : std_logic;
+
+  -- Not used yet
+  signal   matrix_ram_offset : integer range 0 to 15;
+  signal   matrix_dia        : std_logic_vector(7 downto 0);
+  signal   keyram_wea        : std_logic_vector(7 downto 0);
 
 begin
 
@@ -94,61 +99,70 @@ begin
       vga_rst_o => vga_rst
     ); -- clk_rst_inst : entity work.clk_rst
 
-  -- Let the core run at the VGA clock. This avoids any Clock Domain Crossings
-  core_clk_o            <= vga_clk;
-  core_rst_o            <= vga_rst;
+  -- Let the core run at the VGA clock. This avoids Clock Domain Crossings
+  core_clk_o <= vga_clk;
+  core_rst_o <= vga_rst;
 
-  -- TBD: Add keyboard controller
-  core_bat_up_o         <= '0';
-  core_bat_down_o       <= '0';
+  core_ce_proc : process (vga_clk)
+  begin
+    if rising_edge(vga_clk) then
+      vga_vs_d  <= vga_vs_o;
 
-  -- Instantiate VGA controller
-  vga_controller_640_60_inst : entity work.vga_controller_640_60
+      core_ce_o <= vga_vs_o and not vga_vs_d;
+    end if;
+  end process core_ce_proc;
+
+
+  -- Instantiate keyboard controller
+  mega65kbd_to_matrix_inst : entity work.mega65kbd_to_matrix
+    generic map (
+      G_CLOCK_KHZ => C_VIDEO_MODE.CLK_KHZ
+    )
     port map (
-      vga_clk_i => vga_clk,
-      vga_rst_i => vga_rst,
-      hs_o      => vga_hs,
-      vs_o      => vga_vs,
-      hcount_o  => pixel_x,
-      vcount_o  => pixel_y,
-      blank_o   => blank
-    ); -- vga_controller_640_60_inst : entity work.vga_controller_640_60
+      clk_i               => vga_clk,
+      rst_i               => vga_rst,
+      kio8_o              => kb_io0_o,
+      kio9_o              => kb_io1_o,
+      kio10_i             => kb_io2_i,
+      powerled_steady_i   => '1',
+      powerled_col_i      => X"CC8844",
+      driveled_steady_i   => '1',
+      driveled_blinking_i => '0',
+      driveled_col_i      => X"4488CC",
+      matrix_ram_offset_o => matrix_ram_offset,
+      matrix_dia_o        => matrix_dia,
+      keyram_wea_o        => keyram_wea,
+      delete_o            => open,
+      return_o            => open,
+      fastkey_o           => open,
+      restore_n_o         => open,
+      capslock_n_o        => open,
+      leftkey_o           => core_bat_up_o,
+      upkey_o             => core_bat_down_o
+    ); -- mega65kbd_to_matrix_inst : entity work.mega65kbd_to_matrix
 
-  -- Display sprites
-  sprite_inst : entity work.sprite
+  vga_wrapper_inst : entity work.vga_wrapper
+    generic map (
+      G_VIDEO_MODE => C_VIDEO_MODE
+    )
     port map (
-      clk_i       => vga_clk,
-      rst_i       => vga_rst,
-      vsync_i     => vga_vs,
-      sprites_i   => core_sprites_i,
-      pixel_x_i   => pixel_x,
-      pixel_y_i   => pixel_y,
-      rgb_i       => C_COLOR_DARK_GREY, -- Background color
-      rgb_o       => vga_col,
-      collision_o => core_collision_o
-    ); -- sprite_inst : entity work.sprite
+      vga_clk_i       => vga_clk,
+      vga_rst_i       => vga_rst,
+      vga_sprites_i   => core_sprites_i,
+      vga_collision_o => core_collision_o,
+      vga_red_o       => vga_red_o,
+      vga_green_o     => vga_green_o,
+      vga_blue_o      => vga_blue_o,
+      vga_hs_o        => vga_hs_o,
+      vga_vs_o        => vga_vs_o,
+      vga_scl_io      => vga_scl_io,
+      vga_sda_io      => vga_sda_io,
+      vdac_clk_o      => vdac_clk_o,
+      vdac_sync_n_o   => vdac_sync_n_o,
+      vdac_blank_n_o  => vdac_blank_n_o,
+      vdac_psave_n_o  => vdac_psave_n_o
+    ); -- vga_wrapper_inst : entity work.vga_wrapper
 
-  vga_red_o             <= vga_col(23 downto 16) when blank = '0' else
-                           X"00";
-  vga_green_o           <= vga_col(15 downto 8) when blank = '0' else
-                           X"00";
-  vga_blue_o            <= vga_col(7 downto 0) when blank = '0' else
-                           X"00";
-  vga_hs_o              <= vga_hs;
-  vga_vs_o              <= vga_vs;
-
-  -- TBD
-  vga_scl_io            <= 'Z';
-  vga_sda_io            <= 'Z';
-  vdac_clk_o            <= '0';
-  vdac_sync_n_o         <= '0';
-  vdac_blank_n_o        <= '1';
-  vdac_psave_n_o        <= '1';
-
-  -- MEGA65 smart keyboard controller
-  kb_io0_o              <= '0';
-  kb_io1_o              <= '0';
-  kb_jtagen_o           <= '0';
 
   -- Joysticks and Paddles
   fa_fire_n_o           <= '1';
@@ -166,6 +180,8 @@ begin
   joystick_5v_disable_o <= '0';
 
   paddle_drain_o        <= '0';
+
+  kb_jtagen_o           <= '0';
 
 end architecture synthesis;
 
