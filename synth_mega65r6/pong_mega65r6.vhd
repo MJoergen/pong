@@ -5,6 +5,9 @@ library ieee;
 library work;
   use work.sprite_pkg.all;
 
+library work;
+  use work.video_modes_pkg.all;
+
 entity pong_mega65r6 is
   port (
     -- Onboard crystal oscillator = 100 MHz
@@ -65,6 +68,8 @@ end entity pong_mega65r6;
 
 architecture synthesis of pong_mega65r6 is
 
+  constant C_VIDEO_MODE : video_modes_type := C_VIDEO_MODE_720_576_50;
+
   signal core_clk       : std_logic;
   signal core_rst       : std_logic;
   signal core_ce        : std_logic;
@@ -78,6 +83,9 @@ architecture synthesis of pong_mega65r6 is
 begin
 
   mega65r6_inst : entity work.mega65r6
+    generic map (
+      G_VIDEO_MODE => C_VIDEO_MODE
+    )
     port map (
       clk_i                   => clk_i,
       reset_button_i          => reset_button_i,
@@ -131,6 +139,10 @@ begin
     ); -- mega65r6_inst : entity work.mega65r6
 
   pong_inst : entity work.pong
+    generic map (
+      G_SCREEN_X => C_VIDEO_MODE.H_PIXELS,
+      G_SCREEN_Y => C_VIDEO_MODE.V_PIXELS
+    )
     port map (
       clk_i       => core_clk,
       rst_i       => core_rst,

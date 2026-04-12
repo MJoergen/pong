@@ -6,8 +6,9 @@ library ieee;
 
 entity player_move is
   generic (
-    G_SCREEN_Y : natural := 480; -- Vertical size of screen
-    G_HEIGHT   : natural := 21   -- Vertical size of sprite
+    G_SCREEN_X : natural;
+    G_SCREEN_Y : natural;
+    G_HEIGHT   : natural := 16        -- Vertical size of sprite
   );
   port (
     -- Clock

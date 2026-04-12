@@ -6,6 +6,10 @@ library work;
   use work.sprite_pkg.all;
 
 entity pong is
+  generic (
+    G_SCREEN_X : natural;
+    G_SCREEN_Y : natural
+  );
   port (
     clk_i       : in    std_logic;
     rst_i       : in    std_logic;
@@ -110,6 +114,10 @@ begin
 
   -- Instantiate Player
   player_move_inst : entity work.player_move
+    generic map (
+      G_SCREEN_X => G_SCREEN_X,
+      G_SCREEN_Y => G_SCREEN_Y
+    )
     port map (
       clk_i      => clk_i,
       rst_i      => rst_i,
@@ -121,6 +129,10 @@ begin
 
   -- Instantiate Computer
   computer_move_inst : entity work.computer_move
+    generic map (
+      G_SCREEN_X => G_SCREEN_X,
+      G_SCREEN_Y => G_SCREEN_Y
+    )
     port map (
       clk_i    => clk_i,
       rst_i    => rst_i,
@@ -132,6 +144,10 @@ begin
 
   -- Instantiate Ball
   ball_move_inst : entity work.ball_move
+    generic map (
+      G_SCREEN_X => G_SCREEN_X,
+      G_SCREEN_Y => G_SCREEN_Y
+    )
     port map (
       clk_i       => clk_i,
       rst_i       => rst_i,

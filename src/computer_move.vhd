@@ -6,9 +6,10 @@ library ieee;
 
 entity computer_move is
   generic (
-    G_BALL_HEIGHT     : integer := 7;  -- Vertical size of ball sprite
-    G_COMPUTER_HEIGHT : integer := 21; -- Vertical size of computer sprite
-    G_SCREEN_Y        : integer := 480 -- Vertical size of screen
+    G_SCREEN_X        : natural;
+    G_SCREEN_Y        : natural;
+    G_BALL_HEIGHT     : integer := 16; -- Vertical size of ball sprite
+    G_COMPUTER_HEIGHT : integer := 16  -- Vertical size of computer sprite
   );
   port (
     -- Clock
@@ -25,7 +26,7 @@ entity computer_move is
   );
 end entity computer_move;
 
-architecture structural of computer_move is
+architecture synthesis of computer_move is
 
   signal pos_y : natural range 0 to 2047 := 256;
 
@@ -50,5 +51,5 @@ begin
     end if;
   end process pos_proc;
 
-end architecture structural;
+end architecture synthesis;
 

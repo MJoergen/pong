@@ -9,6 +9,9 @@ library work;
   use work.video_modes_pkg.all;
 
 entity mega65r6 is
+  generic (
+    G_VIDEO_MODE : video_modes_type
+  );
   port (
     -- Onboard crystal oscillator = 100 MHz
     clk_i                   : in    std_logic;
@@ -77,8 +80,6 @@ end entity mega65r6;
 
 architecture synthesis of mega65r6 is
 
-  constant C_VIDEO_MODE : video_modes_type := C_VIDEO_MODE_800_600_60;
-
   signal   vga_clk  : std_logic;
   signal   vga_rst  : std_logic;
   signal   vga_vs_d : std_logic;
@@ -116,7 +117,7 @@ begin
   -- Instantiate keyboard controller
   mega65kbd_to_matrix_inst : entity work.mega65kbd_to_matrix
     generic map (
-      G_CLOCK_KHZ => C_VIDEO_MODE.CLK_KHZ
+      G_CLOCK_KHZ => G_VIDEO_MODE.CLK_KHZ
     )
     port map (
       clk_i               => vga_clk,
@@ -137,13 +138,13 @@ begin
       fastkey_o           => open,
       restore_n_o         => open,
       capslock_n_o        => open,
-      leftkey_o           => core_bat_up_o,
-      upkey_o             => core_bat_down_o
+      leftkey_o           => core_bat_down_o,
+      upkey_o             => core_bat_up_o
     ); -- mega65kbd_to_matrix_inst : entity work.mega65kbd_to_matrix
 
   vga_wrapper_inst : entity work.vga_wrapper
     generic map (
-      G_VIDEO_MODE => C_VIDEO_MODE
+      G_VIDEO_MODE => G_VIDEO_MODE
     )
     port map (
       vga_clk_i       => vga_clk,

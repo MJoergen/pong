@@ -9,8 +9,9 @@ library work;
 
 entity ball_move is
   generic (
-    G_SCREEN_Y : integer := 480 * 8; -- Vertical size of screen
-    G_HEIGHT   : integer := 7        -- Vertical size of sprite
+    G_SCREEN_X : natural;
+    G_SCREEN_Y : natural;
+    G_HEIGHT   : natural := 16        -- Vertical size of sprite
   );
   port (
     -- Clock
@@ -30,17 +31,17 @@ end entity ball_move;
 
 architecture structural of ball_move is
 
-  signal vel_x : integer                 := 8;
-  signal vel_y : integer                 := 8;
+  signal vel_x : integer                 := 1;
+  signal vel_y : integer                 := 1;
   signal pos_x : natural range 0 to 2047 := 256;
   signal pos_y : natural range 0 to 2047 := 256;
 
 begin
 
-  pos_x_o   <= pos_x / 8;
-  pos_y_o   <= pos_y / 8;
+  pos_x_o   <= pos_x;
+  pos_y_o   <= pos_y;
 
-  col_clr_o <= '0';
+  col_clr_o <= ce_i and (or(collision_i));
 
   pos_proc : process (clk_i, ce_i)
   begin
@@ -48,9 +49,9 @@ begin
       if or (collision_i) = '1' then
         pos_x <= pos_x - vel_x;
         if vel_x > 0 then
-          vel_x <= - vel_x - 1;
+          vel_x <= - vel_x;
         else
-          vel_x <= - vel_x + 1;
+          vel_x <= - vel_x;
         end if;
       else
         pos_x <= pos_x + vel_x;
@@ -70,6 +71,11 @@ begin
         else
           pos_y <= pos_y + vel_y;
         end if;
+      end if;
+
+      if pos_x < 10 or pos_x > 400 or pos_y < 10 or pos_y > 400 then
+        pos_x <= 256;
+        pos_y <= 256;
       end if;
 
       if rst_i = '1' then
